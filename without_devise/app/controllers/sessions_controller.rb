@@ -6,10 +6,20 @@ class SessionsController < ApplicationController
     case params[:provider] 
     when "weibo"
       _create_for_weibo
+    when "qq_connect"
+      _create_for_qq_connect
     end
   end
 
   def _create_for_weibo
+    _create_for_omniauth
+  end
+
+  def _create_for_qq_connect
+    _create_for_omniauth
+  end
+
+  def _create_for_omniauth
     auth_hash = request.env['omniauth.auth']
     uid = auth_hash["uid"]
     provider   = auth_hash["provider"]
@@ -23,7 +33,7 @@ class SessionsController < ApplicationController
     ).first
 
     if user_token.blank?
-      user = User.create!(:name => auth_hash[:info][:name])
+      user = User.create!(:name => auth_hash[:info][:nickname])
       user_token = user.user_tokens.create(
         :uid        => uid,
         :provider   => provider,

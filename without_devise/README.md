@@ -133,13 +133,3 @@ class SessionsController < ApplicationController
   end
 end
 ```
-
-
-## 登陆
-
-## weibo
-访问 http://localhost:3000/auth/weibo
-## qq
-访问 http://localhost:3000/auth/qq_connect
-## github
-访问 http://localhost:3000/auth/github

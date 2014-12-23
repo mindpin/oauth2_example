@@ -153,14 +153,3 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 end
 ```
-
-
-## 登陆
-
-## weibo
-访问 http://localhost:3000/auth/weibo
-## qq
-yourhost.com 是在本地 host 文件配置的对应本地IP的一个域名（因为QQ应用不支持IP回调地址）
-访问 http://yourhost.com:3000/auth/qq_connect
-## github
-访问 http://localhost:3000/auth/github

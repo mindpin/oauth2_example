@@ -3,7 +3,8 @@ class User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:weibo, :qq_connect, :github]
 
   ## Database authenticatable
   field :email,              type: String, default: ""
@@ -48,4 +49,14 @@ class User
     [record.id.to_s, record.authenticatable_salt]
   end
   ######################### issues/3626 ###########################
+  has_many :user_tokens
+  field :name, type: String
+
+  def password_required?
+    false
+  end
+
+  def email_required?
+    false
+  end
 end

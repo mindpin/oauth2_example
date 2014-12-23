@@ -8,7 +8,13 @@ class SessionsController < ApplicationController
       _create_for_weibo
     when "qq_connect"
       _create_for_qq_connect
+    when "github"
+      _create_for_github
     end
+  end
+
+  def _create_for_github
+    _create_for_omniauth
   end
 
   def _create_for_weibo

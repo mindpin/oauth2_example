@@ -1,14 +1,18 @@
-# 引用 gem
+# without_devise
+这个 rails 工程里演示了 weibo qq github 的 oauth2 认证，基于 omniauth，没有使用 devise
+
+如果你想在自己的工程增加 weibo qq github 的 oauth2 认证，就在自己工程增加以下内容即可
+
+## 引用 gem
 ```ruby
 gem "mongoid", "4.0.0"
 gem "omniauth-weibo-oauth2"
 gem "omniauth-qq"
 gem "omniauth-github"
 gem "figaro"
-
 ```
 
-# omniauth 配置
+## omniauth 配置
 ```ruby
 # config/initializers/omniauth.rb
 
@@ -22,7 +26,7 @@ end
 OmniAuth.config.logger = Rails.logger
 ```
 
-# application 配置
+## application 配置
 ```yml
 # config/application.yml
 
@@ -34,12 +38,12 @@ GITHUB_KEY: xxx
 GITHUB_SECRET: xxx
 ```
 
-# routes
+## routes
 ```ruby
   get '/auth/:provider/callback', to: 'sessions#create'
 ```
 
-# model
+## model
 ```ruby
 # user.rb
 class User
@@ -66,7 +70,7 @@ class UserToken
 end
 ```
 
-# controller
+## controller
 ```ruby
 # sessions_controller.rb
 class SessionsController < ApplicationController
@@ -131,7 +135,7 @@ end
 ```
 
 
-# 登陆
+## 登陆
 
 ## weibo
 访问 http://localhost:3000/auth/weibo

@@ -67,5 +67,5 @@ yourhost.com 是在本地 host 文件配置的对应本地IP的一个域名（�
 ### github
 访问 http://localhost:3000/auth/github
 
-### 详细说明
+## 详细说明
 详细的说明请看 with_devise 和 without_devise 目录下的 readme 文件

@@ -41,6 +41,7 @@ GITHUB_SECRET: xxx
 ## routes
 ```ruby
   get '/auth/:provider/callback', to: 'sessions#create'
+  delete '/sign_out', to: 'sessions#destroy'
 ```
 
 ## model
@@ -70,7 +71,41 @@ class UserToken
 end
 ```
 
+## helper
+```ruby
+# app/helpers/application_helper.rb
+
+module ApplicationHelper
+  def current_user=(user)
+    user_id = user.id.to_s
+    cookies.permanent.signed["user_id"] = user_id
+  end
+
+  def current_user
+    user_id = cookies.signed["user_id"]
+    User.where(:id => user_id).last
+  end
+
+  def user_signed_in?
+    !!current_user
+  end
+
+  def user_sign_out!
+    cookies.delete "user_id"
+  end
+end
+```
+
 ## controller
+```ruby
+# application_controller.rb
+class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+  # include helper
+  include ApplicationHelper
+end
+```
+
 ```ruby
 # sessions_controller.rb
 class SessionsController < ApplicationController
@@ -128,8 +163,13 @@ class SessionsController < ApplicationController
       )
     end
 
-    # 处理微博登陆逻辑
-    render :json => user_token
+    self.current_user = user_token.user
+    redirect_to "/"
+  end
+
+  def destroy
+    self.user_sign_out!
+    redirect_to "/"
   end
 end
 ```

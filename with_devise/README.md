@@ -145,11 +145,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       )
     end
 
-    # 处理微博登陆逻辑
-    render :json => {
-      :user        => user_token.user,
-      :user_token  => user_token
-    }
+    sign_in_and_redirect(:user, user_token.user)
   end
 end
 ```

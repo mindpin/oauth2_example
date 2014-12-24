@@ -1,0 +1,10 @@
+-if user_signed_in?
+  = current_user.name
+  = link_to "登出", "/sign_out",:method => :delete
+-else
+  .weibo
+    = link_to "微博登陆", "/auth/weibo"
+  .qq_connect
+    = link_to "QQ登陆", "/auth/qq_connect"
+  .github
+    = link_to "github登陆", "/auth/github"

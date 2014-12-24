@@ -54,8 +54,12 @@ class SessionsController < ApplicationController
         :expires    => expires
       )
     end
+    self.current_user = user_token.user
+    redirect_to "/"
+  end
 
-    # 处理微博登陆逻辑
-    render :json => user_token
+  def destroy
+    self.user_sign_out!
+    redirect_to "/"
   end
 end
